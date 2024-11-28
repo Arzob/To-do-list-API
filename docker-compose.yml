@@ -1,0 +1,38 @@
+version: '3.8'
+
+services:
+  # Node.js application
+  app:
+    image: node:18
+    container_name: todo-app
+    working_dir: /app
+    ports:
+      - "5000:5000"
+    environment:
+      - MONGO_URI=mongodb://mongo:27017/todo-app
+      - JWT_SECRET=your-secret-key
+    volumes:
+      - .:/app
+    command: bash -c "cd /app && npm install && node server.js"
+    depends_on:
+      - mongo
+    networks:
+      - todo-net
+
+  # MongoDB service
+  mongo:
+    image: mongo:latest
+    container_name: mongo
+    ports:
+      - "27017:27017"
+    volumes:
+      - mongodb-data:/data/db
+    networks:
+      - todo-net
+
+volumes:
+  mongodb-data:
+
+networks:
+  todo-net:
+    driver: bridge
