@@ -1,0 +1,1 @@
+Todo list built with Node.js with MongoDB as database, which stores User information in an encrypted format using bcrypt and uses a middleware for authorization jsonwebtoken. You can use curl commands or POSTMAN to test it.
